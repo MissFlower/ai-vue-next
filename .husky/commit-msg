@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
-npm run node scripts/verifyCommit.js
+npm run verifyCommit
 # npx --no-install commitlint --edit $1

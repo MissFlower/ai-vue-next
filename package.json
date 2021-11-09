@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "prepare": "husky install",
-    "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js"
+    "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
+    "verifyCommit": "node scripts/verifyCommit.js"
   },
   "repository": {
     "type": "git",
