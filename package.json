@@ -4,14 +4,16 @@
   "description": "vue-next mini version",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install",
+    "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MissFlower/ai-vue-next.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "DoveyLoveyCora",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MissFlower/ai-vue-next/issues"
@@ -23,8 +25,11 @@
     "@babel/preset-typescript": "^7.16.0",
     "@types/jest": "^27.0.2",
     "babel-jest": "^27.3.1",
+    "eslint": "^8.2.0",
+    "husky": "^7.0.4",
     "jest": "^27.3.1",
+    "lint-staged": "^11.2.6",
+    "prettier": "^2.4.1",
     "typescript": "^4.4.4"
-  },
-  "dependencies": {}
+  }
 }
