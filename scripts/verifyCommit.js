@@ -1,7 +1,8 @@
 const chalk = require('chalk')
-const msgPath = process.env.GIT_PARAMS
-console.log(msgPath)
-const msg = require('fs').readFileSync(msgPath, 'utf-8').trim()
+// PWD
+const msg = require('fs')
+  .readFileSync(`${process.env.INIT_CWD}/.git/COMMIT_EDITMSG`, 'utf-8')
+  .trim()
 
 const commitRE =
   /^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?: .{1,50}/
@@ -23,3 +24,4 @@ if (!commitRE.test(msg)) {
   )
   process.exit(1)
 }
+console.log(chalk.green(msg))
