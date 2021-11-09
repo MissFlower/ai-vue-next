@@ -25,3 +25,4 @@ if (!commitRE.test(msg)) {
   )
   process.exit(1)
 }
+console.log(chalk.green(`${msg}--commit信息格式正确，给予通过！`))
