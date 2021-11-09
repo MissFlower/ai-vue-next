@@ -1,4 +1,4 @@
-console.log(123)
+console.log(1234)
 module.exports = {
   ignores: [commit => commit.includes('init')],
   extends: ['@commitlint/config-conventional'],
