@@ -1,4 +1,5 @@
 const chalk = require('chalk')
+chalk.level = 1
 // PWD
 const msg = require('fs')
   .readFileSync(`${process.env.INIT_CWD}/.git/COMMIT_EDITMSG`, 'utf-8')
@@ -8,7 +9,7 @@ const commitRE =
   /^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?: .{1,50}/
 
 if (!commitRE.test(msg)) {
-  console.log()
+  console.log(chalk.green(msg))
   console.error(
     `  ${chalk.bgRed.white(' ERROR ')} ${chalk.red(
       `invalid commit message format.`
@@ -24,4 +25,3 @@ if (!commitRE.test(msg)) {
   )
   process.exit(1)
 }
-console.log(chalk.green(msg))
