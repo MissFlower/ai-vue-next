@@ -1,4 +1,4 @@
-import { readonly } from "../reactive";
+import { readonly } from '../reactive'
 
 describe('readonly', () => {
   it('happy path', () => {
@@ -11,7 +11,7 @@ describe('readonly', () => {
     const wrap = readonly(original)
     expect(wrap).not.toBe(original)
     expect(wrap.foo).toBe(1)
-  });
+  })
 
   it('warn then set called', () => {
     console.warn = jest.fn()
@@ -22,5 +22,5 @@ describe('readonly', () => {
     user.age = 11
     expect(user.age).toBe(10)
     expect(console.warn).toBeCalled()
-  });
-});
+  })
+})
