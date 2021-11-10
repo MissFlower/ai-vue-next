@@ -14,11 +14,16 @@ class ReactiveEffect {
   }
 
   run() {
+    if (!this.active) {
+      // 当使用stop(effect)后，我们在去执行runner就是执行run方法，因为进行了stop所以要在这里返回this.fn() 不能让activeEffect在赋值，不然会继续收集依赖
+      return this.fn()
+    }
     try {
       activeEffect = this
       return this.fn()
     } finally {
-      activeEffect = ''
+      // 当fn执行完之后要把activeEffect清空 如果不清除下次访问属性的时候会把之前的fn收集进去
+      activeEffect = undefined
     }
   }
 
@@ -38,10 +43,10 @@ export function stop(runner) {
 }
 
 function cleanupEffect(effect) {
-  const {deps} = effect
+  const { deps } = effect
   if (deps.length) {
     for (let i = 0; i < deps.length; i++) {
-      deps[i].delete(effect)    
+      deps[i].delete(effect)
     }
     // 这里将deps.length设置为0是优化
     // 原本删除数组下标每一个set集合的成员,deps.length长度不变
@@ -65,7 +70,7 @@ export function track(target, key) {
 
   let dep = depsMap.get(key)
   if (!dep) {
-    depsMap.set(key, dep = (new Set()))
+    depsMap.set(key, (dep = new Set()))
   }
 
   // 这里的判断 activeEffect存在时才会收集依赖 因为每次属性被访问都会出发track函数 比如 a=obj.b也会触发
@@ -98,11 +103,14 @@ export function trigger(target, key) {
   }
 }
 
+function isTracking() {
+  return activeEffect !== undefined
+}
+
 export function effect(fn, options?) {
   const _effect = new ReactiveEffect(fn, options)
   _effect.run()
-  const runner:any = _effect.run.bind(_effect)
+  const runner: any = _effect.run.bind(_effect)
   runner.effect = _effect
   return runner
 }
-

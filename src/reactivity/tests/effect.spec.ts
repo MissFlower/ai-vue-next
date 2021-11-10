@@ -6,9 +6,9 @@ describe('effect', () => {
     const user = reactive({
       age: 18
     })
-  
+
     expect(user.age).toBe(18)
-  
+
     let nextAge
     effect(() => {
       nextAge = user.age + 1
@@ -22,13 +22,13 @@ describe('effect', () => {
     let foo = 1
     const runner = effect(() => {
       foo++
-      return "foo"
+      return 'foo'
     })
     expect(foo).toBe(2)
 
     const r = runner()
     expect(foo).toBe(3)
-    expect(r).toBe("foo")
+    expect(r).toBe('foo')
   })
 
   it('scheduler', () => {
@@ -60,22 +60,23 @@ describe('effect', () => {
     run()
     // should have run
     expect(dummy).toBe(2)
-  });
+  })
 
   it('stop', () => {
     let dummy
-    const obj = reactive({ prop: 1 })
+    const obj = reactive({ prop: 1, name: 10 })
     const runner = effect(() => {
       dummy = obj.prop
     })
     obj.prop = 2
     expect(dummy).toBe(2)
     stop(runner)
-    obj.prop = 3
+    obj.prop++
     expect(dummy).toBe(2)
 
     // stopped effect should still be manually callable
     runner()
+    obj.prop++
     expect(dummy).toBe(3)
   })
 
@@ -88,4 +89,4 @@ describe('effect', () => {
     stop(runner)
     expect(onStop).toHaveBeenCalled()
   })
-});
+})
