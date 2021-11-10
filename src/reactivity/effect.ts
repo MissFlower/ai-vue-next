@@ -1,16 +1,14 @@
+import { extend } from '../shared'
+
 const targetMap = new WeakMap()
 let activeEffect
 
 class ReactiveEffect {
-  public fn
-  public scheduler
-  public onStop
+  onStop?: () => void
   deps = []
   active = true
-  constructor(fn, options) {
+  constructor(public fn, public scheduler = null) {
     this.fn = fn
-    this.scheduler = options?.scheduler
-    this.onStop = options?.onStop
   }
 
   run() {
@@ -109,6 +107,7 @@ function isTracking() {
 
 export function effect(fn, options?) {
   const _effect = new ReactiveEffect(fn, options)
+  options && extend(_effect, options)
   _effect.run()
   const runner: any = _effect.run.bind(_effect)
   runner.effect = _effect
