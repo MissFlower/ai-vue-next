@@ -70,9 +70,12 @@ export function track(target, key) {
   if (!dep) {
     depsMap.set(key, (dep = new Set()))
   }
+  trackEffects(dep)
+}
 
+export function trackEffects(dep) {
   // 这里的判断 activeEffect存在时才会收集依赖 因为每次属性被访问都会出发track函数 比如 a=obj.b也会触发
-  if (activeEffect) {
+  if (isTracking()) {
     dep.add(activeEffect)
     // 用户写的每一个effect函数都会new一个新的effect对象 里面各自有自己的deps
     // dep里存放的是每个对象key的effect回调函数fn
@@ -91,7 +94,10 @@ export function track(target, key) {
 export function trigger(target, key) {
   const depsMap = targetMap.get(target)
   const dep = depsMap.get(key)
+  triggerEffects(dep)
+}
 
+export function triggerEffects(dep) {
   for (const effect of dep) {
     if (effect.scheduler) {
       effect.scheduler()
@@ -101,7 +107,7 @@ export function trigger(target, key) {
   }
 }
 
-function isTracking() {
+export function isTracking() {
   return activeEffect !== undefined
 }
 
