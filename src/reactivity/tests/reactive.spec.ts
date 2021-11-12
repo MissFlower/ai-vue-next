@@ -9,6 +9,7 @@ describe('happy path', () => {
 
     expect(observed).not.toBe(original)
     expect(observed.foo).toBe(1)
+    observed.foo = 5
   })
 
   it('isReactive', () => {

@@ -3,11 +3,12 @@ import { extend } from '../shared'
 const targetMap = new WeakMap()
 let activeEffect
 
-class ReactiveEffect {
+export type EffectScheduler = (...args: any[]) => any
+export class ReactiveEffect {
   onStop?: () => void
   deps = []
   active = true
-  constructor(public fn, public scheduler = null) {
+  constructor(public fn, public scheduler: EffectScheduler | null = null) {
     this.fn = fn
   }
 
@@ -112,7 +113,7 @@ export function isTracking() {
 }
 
 export function effect(fn, options?) {
-  const _effect = new ReactiveEffect(fn, options)
+  const _effect = new ReactiveEffect(fn)
   options && extend(_effect, options)
   _effect.run()
   const runner: any = _effect.run.bind(_effect)

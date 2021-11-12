@@ -18,7 +18,6 @@ function createGetter(isReadonly = false, shallow = false) {
       // 当对象是reactive的时候就不是readonly
       return isReadonly
     }
-
     const res = Reflect.get(target, key)
 
     if (!isReadonly) {
@@ -32,6 +31,7 @@ function createGetter(isReadonly = false, shallow = false) {
     if (isObject(res)) {
       return isReadonly ? readonly(res) : reactive(res)
     }
+    console.log('触发了getter', key, res)
     return res
   }
 }
