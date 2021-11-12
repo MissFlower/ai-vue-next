@@ -1,6 +1,6 @@
 import { effect } from '../effect'
 import { reactive } from '../reactive'
-import { ref } from '../ref'
+import { isRef, ref, unref } from '../ref'
 
 describe('reactivity/ref', () => {
   it('should hold a value', () => {
@@ -80,5 +80,20 @@ describe('reactivity/ref', () => {
     assertDummiesEqualTo(3)
     obj.b.c++
     assertDummiesEqualTo(4)
+  })
+
+  test('isRef', () => {
+    expect(isRef(ref(1))).toBe(true)
+    // expect(isRef(computed(() => 1))).toBe(true)
+
+    expect(isRef(0)).toBe(false)
+    expect(isRef(1)).toBe(false)
+    // an object that looks like a ref isn't necessarily a ref
+    expect(isRef({ value: 0 })).toBe(false)
+  })
+
+  test('unref', () => {
+    expect(unref(1)).toBe(1)
+    expect(unref(ref(1))).toBe(1)
   })
 })
