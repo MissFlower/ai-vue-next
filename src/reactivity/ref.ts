@@ -38,6 +38,10 @@ function triggerRefValue(ref) {
   triggerEffects(ref.dep)
 }
 
+export function ref(value) {
+  return new RefImpl(value)
+}
+
 export function isRef(r) {
   return Boolean(r && r.__v_isRef)
 }
@@ -46,6 +50,19 @@ export function unref(r) {
   return isRef(r) ? r.value : r
 }
 
-export function ref(value) {
-  return new RefImpl(value)
+export function proxyRefs(objectWithRefs) {
+  return new Proxy(objectWithRefs, {
+    get(target, key) {
+      return unref(Reflect.get(target, key))
+    },
+    set(target, key, value) {
+      const oldValue = target[key]
+      if (isRef(oldValue) && !isRef(value)) {
+        oldValue.value = value
+        return true
+      } else {
+        return Reflect.set(target, key, value)
+      }
+    }
+  })
 }
