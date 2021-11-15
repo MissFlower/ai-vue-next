@@ -1,7 +1,7 @@
-<script>
+import { h } from '../../lib/ai-vue-next.bundle.esm.js'
 export default {
   render() {
-    return h('div', 'hello'+this.msg)
+    return h('div', 'hello' + this.msg)
   },
   setup() {
     return {
@@ -9,4 +9,3 @@ export default {
     }
   }
 }
-</script>
