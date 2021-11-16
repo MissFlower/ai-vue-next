@@ -1,4 +1,5 @@
 import { h } from '../../lib/ai-vue-next.bundle.esm.js'
+import foo from './foo.js'
 // @ts-ignore
 window.self = null
 export default {
@@ -19,13 +20,15 @@ export default {
           'p',
           { class: 'blue', onMousedown: () => console.log('mousedown') },
           this.msg
-        )
+        ),
+        h(foo, { count: this.count })
       ]
     )
   },
   setup() {
     return {
-      msg: 'ai-vue-next'
+      msg: 'ai-vue-next',
+      count: 1
     }
   }
 }

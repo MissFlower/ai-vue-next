@@ -14,3 +14,6 @@ export const isFunction = (val: unknown): val is Function =>
 export const isArray = val => Array.isArray(val)
 
 export const isOn = val => /^on[A-Z]/.test(val)
+
+export const hasOwn = (obj, key) =>
+  Object.prototype.hasOwnProperty.call(obj, key)

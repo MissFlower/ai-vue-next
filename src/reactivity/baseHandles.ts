@@ -43,28 +43,22 @@ function createSetter() {
   }
 }
 
-export function mutableHandlers() {
-  return {
-    get,
-    set
+export const mutableHandlers = {
+  get,
+  set
+}
+
+export const readonlyHandlers = {
+  get: readonlyGet,
+  set(target, key) {
+    console.warn(
+      `Set operation on key "${String(key)}" failed: target is readonly.`,
+      target
+    )
+    return true
   }
 }
 
-export function readonlyHandlers() {
-  return {
-    get: readonlyGet,
-    set(target, key) {
-      console.warn(
-        `Set operation on key "${String(key)}" failed: target is readonly.`,
-        target
-      )
-      return true
-    }
-  }
-}
-
-export function shallowReadonlyHandlers() {
-  return extend({}, readonlyHandlers, {
-    get: shallowReadonlyGet
-  })
-}
+export const shallowReadonlyHandlers = extend({}, readonlyHandlers, {
+  get: shallowReadonlyGet
+})

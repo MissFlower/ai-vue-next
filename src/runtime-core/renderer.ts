@@ -1,4 +1,4 @@
-import { isObject, isOn } from '../shared'
+import { isArray, hasOwn, isOn } from './../shared/index'
 import { ShapeFlags } from '../shared/shapeFlags'
 import { createComponentInstance, setupComponent } from './component'
 
@@ -37,10 +37,8 @@ function mountElement(vnode: any, container: any) {
   const el = (vnode.el = document.createElement(type))
   // 生成属性
   for (const key in props) {
-    if (Object.prototype.hasOwnProperty.call(props, key)) {
-      const value = Array.isArray(props[key])
-        ? props[key].join(' ')
-        : props[key]
+    if (hasOwn(props, key)) {
+      const value = isArray(props[key]) ? props[key].join(' ') : props[key]
       if (isOn(key)) {
         // 处理事件
         const event = key.slice(2).toLowerCase()
