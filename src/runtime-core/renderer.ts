@@ -1,4 +1,4 @@
-import { isObject } from '../shared'
+import { isObject, isOn } from '../shared'
 import { ShapeFlags } from '../shared/shapeFlags'
 import { createComponentInstance, setupComponent } from './component'
 
@@ -41,8 +41,14 @@ function mountElement(vnode: any, container: any) {
       const value = Array.isArray(props[key])
         ? props[key].join(' ')
         : props[key]
-
-      el.setAttribute(key, value)
+      if (isOn(key)) {
+        // 处理事件
+        const event = key.slice(2).toLowerCase()
+        el.addEventListener(event, value)
+      } else {
+        // 处理属性
+        el.setAttribute(key, value)
+      }
     }
   }
   // 生成子节点

@@ -8,11 +8,18 @@ export default {
     return h(
       'div',
       {
-        class: ['vue-next']
+        class: ['vue-next'],
+        onClick: () => {
+          console.log('ai-vue-next')
+        }
       },
       [
         h('p', { class: ['red', 'title'] }, 'hi'),
-        h('p', { class: 'blue' }, this.msg)
+        h(
+          'p',
+          { class: 'blue', onMousedown: () => console.log('mousedown') },
+          this.msg
+        )
       ]
     )
   },

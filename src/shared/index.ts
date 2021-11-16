@@ -12,3 +12,5 @@ export const isFunction = (val: unknown): val is Function =>
   typeof val === 'function'
 
 export const isArray = val => Array.isArray(val)
+
+export const isOn = val => /^on[A-Z]/.test(val)
