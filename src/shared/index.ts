@@ -10,3 +10,5 @@ export function hasChanged(value, oldValue) {
 
 export const isFunction = (val: unknown): val is Function =>
   typeof val === 'function'
+
+export const isArray = val => Array.isArray(val)
