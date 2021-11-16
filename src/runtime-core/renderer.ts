@@ -27,13 +27,13 @@ function mountComponent(vnode: any, container) {
   const instance = createComponentInstance(vnode)
 
   setupComponent(instance)
-  setupRenderEffect(instance, container)
+  setupRenderEffect(instance, vnode, container)
 }
 
 function mountElement(vnode: any, container: any) {
   const { type, props, children } = vnode
   // 生成标签
-  const el = document.createElement(type)
+  const el = (vnode.el = document.createElement(type))
   // 生成属性
   for (const key in props) {
     if (Object.prototype.hasOwnProperty.call(props, key)) {
@@ -61,8 +61,10 @@ function mountChildren(children: any[], el: any) {
   })
 }
 
-function setupRenderEffect(instance, container) {
+function setupRenderEffect(instance, vnode, container) {
   const { proxy } = instance
   const subTree = instance.render.call(proxy)
   patch(subTree, container)
+  // patch之后将跟节点挂在到vnode上 就是createVNode创建出来的对象中的el
+  vnode.el = subTree.el
 }

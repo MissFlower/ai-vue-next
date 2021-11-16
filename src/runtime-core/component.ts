@@ -24,9 +24,12 @@ function setupStatefulComponent(instance: any) {
     {},
     {
       get(target, key) {
-        const { setupState } = instance
+        const { setupState, vnode } = instance
         if (key in setupState) {
           return setupState[key]
+        }
+        if (key === '$el') {
+          return vnode.el
         }
       }
     }
