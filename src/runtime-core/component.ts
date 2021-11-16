@@ -3,7 +3,8 @@ import { isFunction, isObject } from '../shared'
 export function createComponentInstance(vnode) {
   const component = {
     vnode,
-    type: vnode.type
+    type: vnode.type,
+    setupState: {}
   }
 
   return component
@@ -18,6 +19,18 @@ export function setupComponent(instance) {
 
 function setupStatefulComponent(instance: any) {
   const Component = instance.type
+  // 声依永proxy将setupState挂在到组建实例上
+  instance.proxy = new Proxy(
+    {},
+    {
+      get(target, key) {
+        const { setupState } = instance
+        if (key in setupState) {
+          return setupState[key]
+        }
+      }
+    }
+  )
 
   // call setup()
   const { setup } = Component

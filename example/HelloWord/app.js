@@ -8,7 +8,7 @@ export default {
       },
       [
         h('p', { class: ['red', 'title'] }, 'hi'),
-        h('p', { class: 'blue' }, '我是ai-vue-next')
+        h('p', { class: 'blue' }, this.msg)
       ]
     )
   },
