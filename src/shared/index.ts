@@ -7,7 +7,7 @@ export const hasChanged = (value, oldValue) => !Object.is(value, oldValue)
 export const isFunction = (val: unknown): val is Function =>
   typeof val === 'function'
 
-export const isArray = val => Array.isArray(val)
+export const isArray = Array.isArray
 
 export const isOn = val => /^on[A-Z]/.test(val)
 
