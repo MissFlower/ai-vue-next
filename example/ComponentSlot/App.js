@@ -1,4 +1,4 @@
-import { h } from '../../lib/ai-vue-next.bundle.esm.js'
+import { h, createTextVNode } from '../../lib/ai-vue-next.bundle.esm.js'
 import Foo from './Foo.js'
 
 export default {
@@ -12,12 +12,14 @@ export default {
         {},
         //  h('p', {class: 'custom-element1'}, 'slot-element'),
         {
-          header: props =>
+          header: props => [
             h(
               'p',
               { class: 'custom-element1' },
               'slot-element-header' + props.name
             ),
+            createTextVNode('我是textNode节点')
+          ],
           footer: () =>
             h('p', { class: 'custom-element1' }, 'slot-element-footer')
         }
