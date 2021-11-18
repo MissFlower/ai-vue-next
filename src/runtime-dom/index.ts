@@ -5,7 +5,7 @@ function createElement(tag) {
   return document.createElement(tag)
 }
 
-function patchProps(el, key, value) {
+function patchProp(el, key, value) {
   value = isArray(value) ? value.join(' ') : value
   if (isOn(key)) {
     // 处理事件
@@ -23,7 +23,7 @@ function insert(el, parent) {
 
 const renderer: any = createRenderer({
   createElement,
-  patchProps,
+  patchProp,
   insert
 })
 

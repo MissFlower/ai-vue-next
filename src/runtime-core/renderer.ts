@@ -5,7 +5,7 @@ import { Fragment, Text } from './vnode'
 import { createAppAPI } from './createApp'
 
 export function createRenderer(options) {
-  const { createElement, patchProps, insert } = options
+  const { createElement, patchProp, insert } = options
   function render(vnode, container) {
     patch(vnode, container, null)
   }
@@ -73,7 +73,7 @@ export function createRenderer(options) {
         //   // 处理属性
         //   el.setAttribute(key, value)
         // }
-        patchProps(el, key, value)
+        patchProp(el, key, value)
       }
     }
     // 生成子节点
