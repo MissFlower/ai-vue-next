@@ -4,15 +4,15 @@ import { createComponentInstance, setupComponent } from './component'
 import { Fragment, Text } from './vnode'
 
 export function render(vnode, container) {
-  patch(vnode, container)
+  patch(vnode, container, null)
 }
 
-function patch(vnode, container) {
+function patch(vnode, container, parentComponent) {
   // 处理组件
   const { type, shapeFlag } = vnode
   switch (type) {
     case Fragment:
-      processFragment(vnode, container)
+      processFragment(vnode, container, parentComponent)
       break
     case Text:
       processText(vnode, container)
@@ -20,16 +20,16 @@ function patch(vnode, container) {
 
     default:
       if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
-        processComponent(vnode, container)
+        processComponent(vnode, container, parentComponent)
       } else if (shapeFlag & ShapeFlags.ELEMENT) {
-        processElement(vnode, container)
+        processElement(vnode, container, parentComponent)
       }
       break
   }
 }
 
-function processFragment(vnode: any, container: any) {
-  mountChildren(vnode.children, container)
+function processFragment(vnode: any, container: any, parentComponent) {
+  mountChildren(vnode.children, container, parentComponent)
 }
 
 function processText(vnode: any, container: any) {
@@ -37,22 +37,22 @@ function processText(vnode: any, container: any) {
   container.append(text)
 }
 
-function processComponent(vnode: any, container: any) {
-  mountComponent(vnode, container)
+function processComponent(vnode: any, container: any, parentComponent) {
+  mountComponent(vnode, container, parentComponent)
 }
 
-function processElement(vnode: any, container: any) {
-  mountElement(vnode, container)
+function processElement(vnode: any, container: any, parentComponent) {
+  mountElement(vnode, container, parentComponent)
 }
 
-function mountComponent(initialVNode: any, container) {
-  const instance = createComponentInstance(initialVNode)
+function mountComponent(initialVNode: any, container, parentComponent) {
+  const instance = createComponentInstance(initialVNode, parentComponent)
 
   setupComponent(instance)
   setupRenderEffect(instance, initialVNode, container)
 }
 
-function mountElement(vnode: any, container: any) {
+function mountElement(vnode: any, container: any, parentComponent) {
   const { type, props, children, shapeFlag } = vnode
   // 生成标签
   const el = (vnode.el = document.createElement(type))
@@ -75,22 +75,22 @@ function mountElement(vnode: any, container: any) {
     // 文本节点
     el.textContent = children
   } else if (shapeFlag & ShapeFlags.ARRAY_CHILDREN) {
-    mountChildren(children, el)
+    mountChildren(children, el, parentComponent)
   }
 
   container.append(el)
 }
 
-function mountChildren(children: any[], el: any) {
+function mountChildren(children: any[], el: any, parentComponent) {
   children.forEach(vnode => {
-    patch(vnode, el)
+    patch(vnode, el, parentComponent)
   })
 }
 
 function setupRenderEffect(instance, initialVNode, container) {
   const { proxy } = instance
   const subTree = instance.render.call(proxy)
-  patch(subTree, container)
+  patch(subTree, container, instance)
   // patch之后将跟节点挂在到vnode上 就是createVNode创建出来的对象中的el
   initialVNode.el = subTree.el
 }
