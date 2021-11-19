@@ -1,4 +1,4 @@
-import { isArray, hasOwn, isOn } from './../shared/index'
+import { hasOwn } from './../shared/index'
 import { ShapeFlags } from '../shared/shapeFlags'
 import { createComponentInstance, setupComponent } from './component'
 import { Fragment, Text } from './vnode'
