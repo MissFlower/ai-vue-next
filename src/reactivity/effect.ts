@@ -94,6 +94,10 @@ export function trackEffects(dep) {
 
 export function trigger(target, key) {
   const depsMap = targetMap.get(target)
+  if (!depsMap) {
+    // never been tracked
+    return
+  }
   const dep = depsMap.get(key)
   triggerEffects(dep)
 }
