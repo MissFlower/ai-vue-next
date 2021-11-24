@@ -13,5 +13,10 @@ export default {
       file: pkg.module
     }
   ],
-  plugins: [typescript()]
+  plugins: [typescript()],
+  onwarn: (msg, warn) => {
+    if (!/Circular/.test(msg)) {
+      warn(msg)
+    }
+  }
 }
