@@ -6,7 +6,11 @@ import { createAppAPI } from './createApp'
 import { effect } from '../reactivity/effect'
 
 export function createRenderer(options) {
-  const { createElement, patchProp, insert } = options
+  const {
+    createElement: hostCreateElement,
+    patchProp: hostPatchProp,
+    insert: hostInsert
+  } = options
   function render(vnode, container) {
     patch(null, vnode, container, null)
   }
@@ -65,7 +69,7 @@ export function createRenderer(options) {
     const { type, props, children, shapeFlag } = n2
     // 生成标签
     // const el = (vnode.el = document.createElement(type))
-    const el = (n2.el = createElement(type))
+    const el = (n2.el = hostCreateElement(type))
     // 生成属性
     for (const key in props) {
       if (hasOwn(props, key)) {
@@ -79,7 +83,7 @@ export function createRenderer(options) {
         //   // 处理属性
         //   el.setAttribute(key, value)
         // }
-        patchProp(el, key, value)
+        hostPatchProp(el, key, null, value)
       }
     }
     // 生成子节点
@@ -91,7 +95,7 @@ export function createRenderer(options) {
     }
 
     // container.append(el)
-    insert(el, container)
+    hostInsert(el, container)
   }
 
   function mountChildren(children: any[], el: any, parentComponent) {
@@ -105,6 +109,30 @@ export function createRenderer(options) {
     console.log('patchElement')
     console.log('n1', n1)
     console.log('n2', n2)
+    const el = (n2.el = n1.el)
+    const prevProps = n1.props || {}
+    const nextProps = n2.props || {}
+    patchProp(el, prevProps, nextProps)
+  }
+
+  function patchProp(el: any, oldProps: any, newProps: any) {
+    if (oldProps !== newProps) {
+      for (const key in newProps) {
+        const next = newProps[key]
+        const prev = oldProps[key]
+        if (next !== prev) {
+          hostPatchProp(el, key, prev, next)
+        }
+      }
+    }
+
+    if (oldProps !== {}) {
+      for (const key in oldProps) {
+        if (!(key in newProps)) {
+          hostPatchProp(el, key, oldProps[key], null)
+        }
+      }
+    }
   }
 
   function setupRenderEffect(instance, initialVNode, container) {
