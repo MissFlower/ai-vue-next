@@ -157,6 +157,7 @@ export function createRenderer(options) {
         mountChildren(c2, container, parentComponent)
       } else {
         // 老节点为数组节点 即 新老节点都为数组节点
+        console.log('测试husky')
       }
     }
   }
