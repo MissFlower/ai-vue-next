@@ -1,4 +1,4 @@
-import { hasOwn } from './../shared/index'
+import { EMPTY_OBJ, hasOwn } from './../shared/index'
 import { ShapeFlags } from '../shared/shapeFlags'
 import { createComponentInstance, setupComponent } from './component'
 import { Fragment, Text } from './vnode'
@@ -104,8 +104,8 @@ export function createRenderer(options) {
     console.log('n1', n1)
     console.log('n2', n2)
     const el = (n2.el = n1.el)
-    const prevProps = n1.props || {}
-    const nextProps = n2.props || {}
+    const prevProps = n1.props || EMPTY_OBJ
+    const nextProps = n2.props || EMPTY_OBJ
 
     patchChildren(n1, n2, el, parentComponent)
     patchProp(el, prevProps, nextProps)
@@ -120,12 +120,12 @@ export function createRenderer(options) {
           hostPatchProp(el, key, prev, next)
         }
       }
-    }
 
-    if (oldProps !== {}) {
-      for (const key in oldProps) {
-        if (!(key in newProps)) {
-          hostPatchProp(el, key, oldProps[key], null)
+      if (oldProps !== EMPTY_OBJ) {
+        for (const key in oldProps) {
+          if (!(key in newProps)) {
+            hostPatchProp(el, key, oldProps[key], null)
+          }
         }
       }
     }

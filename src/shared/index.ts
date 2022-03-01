@@ -1,5 +1,7 @@
 export const extend = Object.assign
 
+export const EMPTY_OBJ = {}
+
 export const isObject = value => typeof value === 'object' && value !== null
 
 export const hasChanged = (value, oldValue) => !Object.is(value, oldValue)
