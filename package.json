@@ -9,7 +9,7 @@
     "rollup": "rollup -c rollup.config.ts",
     "prepare": "husky install",
     "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
-    "verifyCommit": "node scripts/verifyCommit.js"
+    "verify-commit": "node scripts/verifyCommit.js"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
-# 使用scripts/verifyCommmit.js进行之定义校验
-npm run verifyCommit
-# 使用commitlint.config.js规则进行校验
+
+pnpm run lint:verify-commit
 # npx --no-install commitlint --edit $1
