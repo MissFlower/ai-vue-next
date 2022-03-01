@@ -140,7 +140,7 @@ export function createRenderer(options) {
     if (shapeFlag & ShapeFlags.TEXT_CHILDREN) {
       if (prevShapeFlag & ShapeFlags.ARRAY_CHILDREN) {
         // 如果老节点是数组节点 新节点是文本节点 卸载老节点
-        unmountChildren(n1)
+        unmountChildren(c1)
       }
       // 设置文本节点
       if (c1 !== c2) {
@@ -148,20 +148,15 @@ export function createRenderer(options) {
         hostSetElementText(container, c2)
       }
     } else {
-      if (prevShapeFlag & ShapeFlags.ARRAY_CHILDREN) {
-        if (shapeFlag & ShapeFlags.ARRAY_CHILDREN) {
-          // TODO:新老节点都是array
-        }
+      // 新节点为数组节点
+      // 老节点是text
+      if (prevShapeFlag & ShapeFlags.TEXT_CHILDREN) {
+        // 删除老节点
+        hostSetElementText(container, '')
+        // 添加新节点
+        mountChildren(c2, container, parentComponent)
       } else {
-        // 老节点是text
-        if (prevShapeFlag & ShapeFlags.TEXT_CHILDREN) {
-          hostSetElementText(container, '')
-        }
-
-        // 新节点是array
-        if (shapeFlag & ShapeFlags.ARRAY_CHILDREN) {
-          mountChildren(c2, container, parentComponent)
-        }
+        // 老节点为数组节点 即 新老节点都为数组节点
       }
     }
   }
