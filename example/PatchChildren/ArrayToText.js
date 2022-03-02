@@ -17,7 +17,7 @@ export default {
         })
       })
     })
-    console.log(obj.value.a.b)
+    console.log(obj.value.a.value)
     return {
       isChange
     }

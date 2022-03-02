@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm run lint:verify-commit
+npm run verify-commit
 # npx --no-install commitlint --edit $1

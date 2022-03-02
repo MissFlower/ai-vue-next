@@ -6,7 +6,7 @@
   "module": "lib/ai-vue-next.bundle.esm.js",
   "scripts": {
     "test": "jest",
-    "rollup": "rollup -c rollup.config.ts",
+    "rollup": "rollup -c rollup.config.ts --watch",
     "prepare": "husky install",
     "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
     "verify-commit": "node scripts/verifyCommit.js"
