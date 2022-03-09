@@ -5,6 +5,7 @@ import { Fragment, isSameVNodeType, Text } from './vnode'
 import { createAppAPI } from './createApp'
 import { effect } from '../reactivity/effect'
 import { shouldUpdateComponent } from './componentUpdateUtils'
+import { queueJobs } from './scheduler'
 
 export function createRenderer(options) {
   const {
@@ -403,34 +404,42 @@ export function createRenderer(options) {
   }
 
   function setupRenderEffect(instance, initialVNode, container, anchor) {
-    instance.update = effect(() => {
-      if (!instance.isMounted) {
-        console.log('init')
-        const { proxy } = instance
-        const subTree = (instance.subTree = instance.render.call(proxy))
-        patch(null, subTree, container, instance, anchor)
-        // patch之后将跟节点挂在到vnode上 就是createVNode创建出来的对象中的el
-        initialVNode.el = subTree.el
-        instance.isMounted = true
-      } else {
-        console.log('update')
-        // 找出下次更新的vnode(next) vnode是之前的
-        // 先改props然后在进行patch更新
-        const { next, vnode } = instance
-        if (next) {
-          next.el = vnode.el
-          updateComponentPreRender(instance, next)
-        }
-        const { proxy } = instance
-        const subTree = instance.render.call(proxy)
-        const prevSubtree = instance.subTree
-        instance.subTree = subTree
+    instance.update = effect(
+      () => {
+        if (!instance.isMounted) {
+          console.log('init')
+          const { proxy } = instance
+          const subTree = (instance.subTree = instance.render.call(proxy))
+          patch(null, subTree, container, instance, anchor)
+          // patch之后将跟节点挂在到vnode上 就是createVNode创建出来的对象中的el
+          initialVNode.el = subTree.el
+          instance.isMounted = true
+        } else {
+          console.log('update')
+          // 找出下次更新的vnode(next) vnode是之前的
+          // 先改props然后在进行patch更新
+          const { next, vnode } = instance
+          if (next) {
+            next.el = vnode.el
+            updateComponentPreRender(instance, next)
+          }
+          const { proxy } = instance
+          const subTree = instance.render.call(proxy)
+          const prevSubtree = instance.subTree
+          instance.subTree = subTree
 
-        console.log('current', subTree)
-        console.log('prev', prevSubtree)
-        patch(prevSubtree, subTree, container, instance, anchor)
+          console.log('current', subTree)
+          console.log('prev', prevSubtree)
+          patch(prevSubtree, subTree, container, instance, anchor)
+        }
+      },
+      {
+        scheduler: () => {
+          console.log('update--scheduler')
+          queueJobs(instance.update)
+        }
       }
-    })
+    )
   }
 
   return {
