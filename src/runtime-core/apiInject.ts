@@ -3,6 +3,7 @@ import { getCurrentInstace } from './component'
 
 export function provide(key, value) {
   const currentInstance: any = getCurrentInstace()
+  debugger
   if (currentInstance) {
     let { provides } = currentInstance
     const parentProvides = currentInstance.parent.provides

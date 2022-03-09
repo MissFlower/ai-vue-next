@@ -9,6 +9,7 @@ export function createVNode(type, props?, children?) {
     key: props?.key,
     props,
     children,
+    component: null,
     el: null,
     shapeFlag: getShapeFlag(type)
   }
