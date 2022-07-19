@@ -22,10 +22,17 @@ describe('parse', () => {
       expect(ast.children[0]).toStrictEqual({
         type: NodeTypes.ELEMENT,
         tag: 'div'
-        // content: {
-        //   type: NodeTypes.SIMPLE_EXPRESSION,
-        //   content: 'message'
-        // }
+      })
+    })
+  })
+
+  describe('text', () => {
+    it('simple text', () => {
+      const ast = baseParse('some text')
+
+      expect(ast.children[0]).toStrictEqual({
+        type: NodeTypes.TEXT,
+        content: 'some text'
       })
     })
   })
