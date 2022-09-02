@@ -1,4 +1,4 @@
-import { EMPTY_OBJ, hasOwn } from './../shared/index'
+import { EMPTY_OBJ, hasOwn } from '../shared/index'
 import { ShapeFlags } from '../shared/shapeFlags'
 import { createComponentInstance, setupComponent } from './component'
 import { Fragment, isSameVNodeType, Text } from './vnode'

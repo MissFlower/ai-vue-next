@@ -1,5 +1,5 @@
 import { ShapeFlags } from '../shared/shapeFlags'
-import { hasOwn, isArray } from './../shared/index'
+import { hasOwn, isArray } from '../shared/index'
 export function initSlots(instance, children) {
   const { shapeFlag } = instance.vnode
   if (shapeFlag & ShapeFlags.SLOT_CHILDREN) {
