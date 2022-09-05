@@ -1,0 +1,9 @@
+lockfileVersion: 5.3
+
+specifiers:
+  '@ai-vue-next/compiler-core': workspace:^1.0.0
+  '@ai-vue-next/runtime-dom': workspace:^1.0.0
+
+dependencies:
+  '@ai-vue-next/compiler-core': link:../compiler-core
+  '@ai-vue-next/runtime-dom': link:../runtime-dom

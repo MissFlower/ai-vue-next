@@ -5,8 +5,9 @@
   "main": "lib/ai-vue-next.bundle.cjs.js",
   "module": "lib/ai-vue-next.bundle.esm.js",
   "scripts": {
-    "test": "jest",
+    "test": "vitest",
     "rollup": "rollup -c rollup.config.ts --watch",
+    "build": "rollup -c rollup.config.ts",
     "prepare": "husky install",
     "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
     "verify-commit": "node scripts/verifyCommit.js"
@@ -29,9 +30,7 @@
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
     "@rollup/plugin-typescript": "^8.3.0",
-    "@types/jest": "^27.0.2",
     "@typescript-eslint/parser": "^5.3.1",
-    "babel-jest": "^27.3.1",
     "chalk": "^4.1.0",
     "eslint": "^8.2.0",
     "husky": "^7.0.4",
@@ -40,6 +39,7 @@
     "prettier": "^2.4.1",
     "rollup": "^2.60.0",
     "tslib": "^2.3.1",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "vitest": "^0.23.1"
   }
 }

@@ -2,15 +2,15 @@ import typescript from '@rollup/plugin-typescript'
 import pkg from './package.json'
 
 export default {
-  input: './src/index.ts',
+  input: './packages/vue/src/index.ts',
   output: [
     {
       format: 'cjs',
-      file: pkg.main
+      file: 'packages/vue/dist/ai-vue-next.cjs.js'
     },
     {
       format: 'esm',
-      file: pkg.module
+      file: 'packages/vue/dist/ai-vue-next.esm.js'
     }
   ],
   plugins: [typescript()],

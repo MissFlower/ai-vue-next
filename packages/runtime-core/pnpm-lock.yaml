@@ -1,0 +1,9 @@
+lockfileVersion: 5.3
+
+specifiers:
+  '@ai-vue-next/reactivity': workspace:^1.0.0
+  '@ai-vue-next/shared': workspace:^1.0.0
+
+dependencies:
+  '@ai-vue-next/reactivity': link:../reactivity
+  '@ai-vue-next/shared': link:../shared

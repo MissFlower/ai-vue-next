@@ -1,0 +1,57 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1,
+    "total": 6
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "@ai-vue-next/runtime-dom",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC"
+    },
+    "prefix": "/Users/aidongyang/code/DoveyLoveyCora/ai-vue-next/packages/runtime-dom"
+  },
+  "2 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "/Users/aidongyang/.pnpm-store/v3",
+    "virtualStoreDir": "/Users/aidongyang/code/DoveyLoveyCora/ai-vue-next/packages/runtime-dom/node_modules/.pnpm"
+  },
+  "3 debug pnpm:stage": {
+    "prefix": "/Users/aidongyang/code/DoveyLoveyCora/ai-vue-next/packages/runtime-dom",
+    "stage": "resolution_started"
+  },
+  "4 info pnpm": {
+    "err": {
+      "name": "Error",
+      "message": "GET https://registry.npmjs.org/@ai-vue-runtime%2Fcore: Not Found - 404",
+      "code": "ERR_PNPM_FETCH_404",
+      "stack": "Error: GET https://registry.npmjs.org/@ai-vue-runtime%2Fcore: Not Found - 404\n    at RetryOperation._fn (/Users/aidongyang/.nvm/versions/node/v14.15.1/lib/node_modules/pnpm/dist/pnpm.cjs:85659:19)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)"
+    }
+  },
+  "5 error pnpm": {
+    "code": "ERR_PNPM_FETCH_404",
+    "hint": "@ai-vue-runtime/core is not in the npm registry, or you have no permission to fetch it.\n\nNo authorization header was set for the request.",
+    "request": {
+      "url": "https://registry.npmjs.org/@ai-vue-runtime%2Fcore"
+    },
+    "response": {
+      "size": 0
+    },
+    "pkgName": "@ai-vue-runtime/core",
+    "pkgsStack": [],
+    "prefix": "/Users/aidongyang/code/DoveyLoveyCora/ai-vue-next/packages/runtime-dom",
+    "err": {
+      "name": "pnpm",
+      "message": "GET https://registry.npmjs.org/@ai-vue-runtime%2Fcore: Not Found - 404",
+      "code": "ERR_PNPM_FETCH_404",
+      "stack": "Error: GET https://registry.npmjs.org/@ai-vue-runtime%2Fcore: Not Found - 404\n    at RetryOperation._fn (/Users/aidongyang/.nvm/versions/node/v14.15.1/lib/node_modules/pnpm/dist/pnpm.cjs:85659:19)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)"
+    }
+  }
+}
