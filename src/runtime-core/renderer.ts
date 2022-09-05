@@ -409,7 +409,10 @@ export function createRenderer(options) {
         if (!instance.isMounted) {
           console.log('init')
           const { proxy } = instance
-          const subTree = (instance.subTree = instance.render.call(proxy))
+          const subTree = (instance.subTree = instance.render.call(
+            proxy,
+            proxy
+          ))
           patch(null, subTree, container, instance, anchor)
           // patch之后将跟节点挂在到vnode上 就是createVNode创建出来的对象中的el
           initialVNode.el = subTree.el
@@ -424,7 +427,7 @@ export function createRenderer(options) {
             updateComponentPreRender(instance, next)
           }
           const { proxy } = instance
-          const subTree = instance.render.call(proxy)
+          const subTree = instance.render.call(proxy, proxy)
           const prevSubtree = instance.subTree
           instance.subTree = subTree
 
